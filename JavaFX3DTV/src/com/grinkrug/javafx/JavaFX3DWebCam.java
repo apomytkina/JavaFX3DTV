@@ -127,7 +127,7 @@ public class JavaFX3DWebCam extends Application {
             webCamInfo.setWebCamIndex(webCamCounter);
             webCamInfo.setWebCamName(webcam.getName());
             options.add(webCamInfo);
-            webCamCounter ++;
+            webCamCounter++;
         }
         ComboBox<WebCamInfo> cameraOptions = new ComboBox<>();
         cameraOptions.setItems(options);
