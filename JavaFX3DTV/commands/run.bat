@@ -1,0 +1,4 @@
+cd ..\out
+set PATH_TO_FX=C:\distrib\JavaFX\openjfx-11.0.2_windows-x64_bin-sdk\javafx-sdk-11.0.2
+set PATH_TO_WEBCAM=..\webcamlib
+java --module-path %PATH_TO_FX%\lib --add-modules javafx.controls,javafx.graphics,javafx.media --add-modules javafx.base,javafx.graphics --add-reads javafx.base=ALL-UNNAMED --add-reads javafx.graphics=ALL-UNNAMED -Djava.library.path=%PATH_TO_FX%\bin -Dfile.encoding=UTF-8 -classpath .;%PATH_TO_FX%\lib\javafx-swt.jar;%PATH_TO_FX%\lib\javafx.web.jar;%PATH_TO_FX%\lib\javafx.base.jar;%PATH_TO_FX%\lib\javafx.fxml.jar;%PATH_TO_FX%\lib\javafx.media.jar;%PATH_TO_FX%\lib\javafx.swing.jar;%PATH_TO_FX%\lib\javafx.controls.jar;%PATH_TO_FX%\lib\javafx.graphics.jar;%PATH_TO_WEBCAM%\bridj-0.6.3-20130316.190111-13.jar;%PATH_TO_WEBCAM%\slf4j-api-1.7.2.jar;%PATH_TO_WEBCAM%\slf4j-nop-1.7.25.jar;%PATH_TO_WEBCAM%\webcam-capture-0.3.10-RC7.jar com.grinkrug.javafx.JavaFX3DWebCam

@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="webcamlib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/JavaFX3DTV/webcamlib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/JavaFX3DTV/webcamlib" recursive="false" />
+  </library>
+</component>
