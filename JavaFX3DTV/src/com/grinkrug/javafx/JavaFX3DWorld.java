@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Group;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SubScene;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.paint.Color;
@@ -55,14 +56,13 @@ class JavaFX3DWorld {
     }
 
     FlowPane get3DWorldPane(){
-
         FlowPane pane = new FlowPane();
 
         root.getChildren().add(world);
         buildCamera();
         buildContent();
 
-        SubScene subScene = new SubScene(root, 700, 600);
+        SubScene subScene = new SubScene(root, 500, 400);
         subScene.setFill(Color.GREY);
         handleKeyboard(subScene);
         handleMouse(subScene);
@@ -87,7 +87,7 @@ class JavaFX3DWorld {
     }
 
     private void buildContent(){
-        float h = 100;
+        float h = 50;
         float s = 200;
         int diff = 22;
 
@@ -493,8 +493,8 @@ class JavaFX3DWorld {
 
         meshView.setMaterial(material);
 
-        contentXform.getChildren().add(meshView);
-        contentGroup.getChildren().add(contentXform);
+        contentXform.getChildren().addAll(meshView);
+        contentGroup.getChildren().addAll(contentXform);
         world.getChildren().addAll(contentGroup);
 
 //        Xform contentXform = new Xform();
