@@ -62,6 +62,16 @@ public class JavaFX3DWebCam extends Application {
     private BufferedImage grabbedImage;
     private ObjectProperty<Image> imageProperty = new SimpleObjectProperty<>();
 
+    Slider horizontalExtension;
+    Slider verticalExtension;
+    Slider verticalNarrowing;
+    Slider horizontalNarrowing;
+
+    Text horizontalExtensionText;
+    Text verticalExtensionText;
+    Text verticalNarrowingText;
+    Text horizontalNarrowingText;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("JavaFX 3D Web Camera TV");
@@ -129,116 +139,147 @@ public class JavaFX3DWebCam extends Application {
     }
 
     private void createTopPanel() {
-        Slider spiral = new Slider();
-        spiral.setMin(0);
-        spiral.setMax(100);
-        spiral.setValue(0);
-        spiral.setShowTickLabels(true);
-        spiral.setShowTickMarks(true);
-        spiral.setMajorTickUnit(50);
-        spiral.setMinorTickCount(5);
-        spiral.setBlockIncrement(10);
+        horizontalExtension = new Slider();
+        verticalExtension = new Slider();
+        verticalNarrowing = new Slider();
+        horizontalNarrowing = new Slider();
 
-        Text spiralText = new Text("Spiral percentage: 0");
-        spiral.valueProperty().addListener(new ChangeListener<Number>() {
+        horizontalExtensionText = new Text("Horizontal extension percentage: 0");
+        verticalExtensionText = new Text("Vertical extension percentage: 0");
+        verticalNarrowingText = new Text("Vertical Narrowing percentage: 0");
+        horizontalNarrowingText = new Text("Horizontal narrowing percentage: 0");
+
+        horizontalExtension.setMin(0);
+        horizontalExtension.setMax(100);
+        horizontalExtension.setValue(0);
+        horizontalExtension.setShowTickLabels(true);
+        horizontalExtension.setShowTickMarks(true);
+        horizontalExtension.setMajorTickUnit(50);
+        horizontalExtension.setMinorTickCount(5);
+        horizontalExtension.setBlockIncrement(10);
+
+        verticalExtension.setMin(0);
+        verticalExtension.setMax(100);
+        verticalExtension.setValue(0);
+        verticalExtension.setShowTickLabels(true);
+        verticalExtension.setShowTickMarks(true);
+        verticalExtension.setMajorTickUnit(50);
+        verticalExtension.setMinorTickCount(5);
+        verticalExtension.setBlockIncrement(10);
+
+        verticalNarrowing.setMin(0);
+        verticalNarrowing.setMax(100);
+        verticalNarrowing.setValue(0);
+        verticalNarrowing.setShowTickLabels(true);
+        verticalNarrowing.setShowTickMarks(true);
+        verticalNarrowing.setMajorTickUnit(50);
+        verticalNarrowing.setMinorTickCount(5);
+        verticalNarrowing.setBlockIncrement(10);
+
+        horizontalNarrowing.setMin(0);
+        horizontalNarrowing.setMax(100);
+        horizontalNarrowing.setValue(0);
+        horizontalNarrowing.setShowTickLabels(true);
+        horizontalNarrowing.setShowTickMarks(true);
+        horizontalNarrowing.setMajorTickUnit(50);
+        horizontalNarrowing.setMinorTickCount(5);
+        horizontalNarrowing.setBlockIncrement(10);
+
+        horizontalExtension.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
-                percentage = (int)spiral.getValue();
-                deformationType = "spiral";
+                percentage = (int)horizontalExtension.getValue();
+                deformationType = "horizontal extension";
                 leftPane = new JavaFX3DWorld(imageProperty).get3DWorldPane(percentage, deformationType);
                 root.setLeft(leftPane);
-                spiralText.setText("Spiral percentage: " + (int)spiral.getValue());
-            }
-        });
-//        spiral.valueProperty()
-//                .addListener( (ov, oldVal, newVal) ->
-//                        spiralText.setText("Extension percentage: " + (int)spiral.getValue()));
+                horizontalExtensionText.setText("Horizontal Extension percentage: " + (int)horizontalExtension.getValue());
 
-        Slider extension = new Slider();
-        extension.setMin(0);
-        extension.setMax(100);
-        extension.setValue(0);
-        extension.setShowTickLabels(true);
-        extension.setShowTickMarks(true);
-        extension.setMajorTickUnit(50);
-        extension.setMinorTickCount(5);
-        extension.setBlockIncrement(10);
-
-        Text extensionText = new Text("Extension percentage: 0");
-        extension.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> ov,
-                                Number old_val, Number new_val) {
-                percentage = (int)extension.getValue();
-                deformationType = "extension";
-                leftPane = new JavaFX3DWorld(imageProperty).get3DWorldPane(percentage, deformationType);
-                root.setLeft(leftPane);
-                extensionText.setText("Extension percentage: " + (int)extension.getValue());
-            }
-        });
-
-        Slider narrowing = new Slider();
-        narrowing.setMin(0);
-        narrowing.setMax(100);
-        narrowing.setValue(0);
-        narrowing.setShowTickLabels(true);
-        narrowing.setShowTickMarks(true);
-        narrowing.setMajorTickUnit(50);
-        narrowing.setMinorTickCount(5);
-        narrowing.setBlockIncrement(10);
-
-        Text narrowingText = new Text("Narrowing percentage: 0");
-        narrowing.valueProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> ov,
-                                Number old_val, Number new_val) {
-                percentage = (int)narrowing.getValue();
-                deformationType = "narrowing";
-                leftPane = new JavaFX3DWorld(imageProperty).get3DWorldPane(percentage, deformationType);
-                root.setLeft(leftPane);
-                narrowingText.setText("Narrowing percentage: " + (int)narrowing.getValue());
-                spiralText.setText("Spiral percentage: 0");
-                extensionText.setText("Extension percentage: 0");
-               // zigzagText.setText("Spiral percentage: 0");
+                verticalExtension.setValue(0);
+                verticalExtensionText.setText("Vertical Extension percentage: 0");
+                verticalNarrowing.setValue(0);
+                verticalNarrowingText.setText("Vertical Narrowing percentage: 0");
+                horizontalNarrowing.setValue(0);
+                horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0");
             }
         });
 
-        Slider zigzag = new Slider();
-        zigzag.setMin(0);
-        zigzag.setMax(100);
-        zigzag.setValue(0);
-        zigzag.setShowTickLabels(true);
-        zigzag.setShowTickMarks(true);
-        zigzag.setMajorTickUnit(50);
-        zigzag.setMinorTickCount(5);
-        zigzag.setBlockIncrement(10);
+        verticalExtension.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                percentage = (int)verticalExtension.getValue();
+                deformationType = "vertical extension";
+                leftPane = new JavaFX3DWorld(imageProperty).get3DWorldPane(percentage, deformationType);
+                root.setLeft(leftPane);
+                verticalExtensionText.setText("Vertical Extension percentage: " + (int)verticalExtension.getValue());
 
-        Text zigzagText = new Text("Zigzag percentage: 0");
-        zigzag.valueProperty()
-                .addListener( (ov, oldVal, newVal) ->
-                        zigzagText.setText("Zigzag percentage: " + (int)zigzag.getValue()));
+                verticalNarrowing.setValue(0);
+                verticalNarrowingText.setText("Vertical Narrowing percentage: 0");
+                horizontalNarrowing.setValue(0);
+                horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0");
+                horizontalExtension.setValue(0);
+                horizontalExtensionText.setText("Horizontal Extension percentage: 0");
+            }
+        });
+
+        verticalNarrowing.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                percentage = (int)verticalNarrowing.getValue();
+                deformationType = "vertical narrowing";
+                leftPane = new JavaFX3DWorld(imageProperty).get3DWorldPane(percentage, deformationType);
+                root.setLeft(leftPane);
+                verticalNarrowingText.setText("Vertical Narrowing percentage: " + (int)verticalNarrowing.getValue());
+
+                verticalExtension.setValue(0);
+                verticalExtensionText.setText("Vertical Extension percentage: 0");
+                horizontalNarrowing.setValue(0);
+                horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0");
+                horizontalExtension.setValue(0);
+                horizontalExtensionText.setText("Horizontal Extension percentage: 0");
+            }
+        });
+
+        horizontalNarrowing.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                percentage = (int)horizontalNarrowing.getValue();
+                deformationType = "horizontal narrowing";
+                leftPane = new JavaFX3DWorld(imageProperty).get3DWorldPane(percentage, deformationType);
+                root.setLeft(leftPane);
+                horizontalNarrowingText.setText("Horizontal Narrowing percentage: " + (int)horizontalNarrowing.getValue());
+
+                verticalExtension.setValue(0);
+                verticalExtensionText.setText("Vertical Narrowing percentage: 0");
+                verticalNarrowing.setValue(0);
+                verticalNarrowingText.setText("Vertical Narrowing percentage: 0");
+                horizontalExtension.setValue(0);
+                horizontalExtensionText.setText("Horizontal Extension percentage: 0");
+            }
+        });
 
         int webCamCounter = 0;
         Label lbInfoLabel = new Label("Select Your WebCam Camera");
         ObservableList<WebCamInfo> options = FXCollections.observableArrayList();
 
         GridPane.setConstraints(lbInfoLabel, 0, 0);
-        GridPane.setConstraints(spiralText, 0, 1);
-        GridPane.setConstraints(spiral, 1, 1);
-        GridPane.setConstraints(extensionText, 0, 2);
-        GridPane.setConstraints(extension, 1, 2);
-        GridPane.setConstraints(narrowingText, 0, 3);
-        GridPane.setConstraints(narrowing, 1, 3);
-        GridPane.setConstraints(zigzagText, 0, 4);
-        GridPane.setConstraints(zigzag, 1, 4);
+        GridPane.setConstraints(horizontalExtensionText, 0, 1);
+        GridPane.setConstraints(horizontalExtension, 1, 1);
+        GridPane.setConstraints(verticalExtensionText, 0, 2);
+        GridPane.setConstraints(verticalExtension, 1, 2);
+        GridPane.setConstraints(verticalNarrowingText, 0, 3);
+        GridPane.setConstraints(verticalNarrowing, 1, 3);
+        GridPane.setConstraints(horizontalNarrowingText, 0, 4);
+        GridPane.setConstraints(horizontalNarrowing, 1, 4);
 
         topPane.getChildren().addAll(
-                spiralText,
-                spiral,
-                extensionText,
-                extension,
-                narrowingText,
-                narrowing,
-                zigzagText,
-                zigzag,
+                horizontalExtensionText,
+                horizontalExtension,
+                verticalExtensionText,
+                verticalExtension,
+                verticalNarrowingText,
+                verticalNarrowing,
+                horizontalNarrowingText,
+                horizontalNarrowing,
                 lbInfoLabel
         );
 
