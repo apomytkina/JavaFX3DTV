@@ -5,6 +5,8 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -43,6 +45,11 @@ import static javafx.geometry.Pos.CENTER;
  */
 
 public class JavaFX3DWebCam extends Application {
+    static private int percentage;
+    static private String deformationType;
+
+    static FlowPane leftPane;
+    static BorderPane root;
 
     private GridPane topPane;
     private BorderPane webCamPane;
@@ -58,7 +65,7 @@ public class JavaFX3DWebCam extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("JavaFX 3D Web Camera TV");
-        BorderPane root = new BorderPane();
+        root = new BorderPane();
         topPane = new GridPane();
         topPane.setPadding(new Insets(10, 10, 10, 10));
         topPane.setVgap(2);
@@ -82,7 +89,7 @@ public class JavaFX3DWebCam extends Application {
         //createCameraControls();
         root.setBottom(bottomCameraControlPane);
 
-        FlowPane leftPane = create3DPane(imageProperty);
+        leftPane = create3DPane(imageProperty);
         root.setLeft(leftPane);
 
         primaryStage.setScene(new Scene(root));
@@ -93,7 +100,7 @@ public class JavaFX3DWebCam extends Application {
     }
 
     private FlowPane create3DPane(ObjectProperty<Image> imageProperty){
-        return new JavaFX3DWorld(imageProperty).get3DWorldPane();
+        return new JavaFX3DWorld(imageProperty).get3DWorldPane(percentage, deformationType);
     }
 
     private void createCameraControls() {
@@ -133,52 +140,78 @@ public class JavaFX3DWebCam extends Application {
         spiral.setBlockIncrement(10);
 
         Text spiralText = new Text("Spiral percentage: 0");
-        spiral.valueProperty()
-                .addListener( (ov, oldVal, newVal) ->
-                        spiralText.setText("Spiral percentage: " + (int)spiral.getValue()));
+        spiral.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                percentage = (int)spiral.getValue();
+                deformationType = "spiral";
+                leftPane = new JavaFX3DWorld(imageProperty).get3DWorldPane(percentage, deformationType);
+                root.setLeft(leftPane);
+                spiralText.setText("Spiral percentage: " + (int)spiral.getValue());
+            }
+        });
+//        spiral.valueProperty()
+//                .addListener( (ov, oldVal, newVal) ->
+//                        spiralText.setText("Extension percentage: " + (int)spiral.getValue()));
 
         Slider extension = new Slider();
         extension.setMin(0);
         extension.setMax(100);
-        extension.setValue(25);
+        extension.setValue(0);
         extension.setShowTickLabels(true);
         extension.setShowTickMarks(true);
         extension.setMajorTickUnit(50);
         extension.setMinorTickCount(5);
         extension.setBlockIncrement(10);
 
-        Text extensionText = new Text("Extension percentage: 25");
-        extension.valueProperty()
-                .addListener( (ov, oldVal, newVal) ->
-                        extensionText.setText("Extension percentage: " + (int)extension.getValue()));
-
+        Text extensionText = new Text("Extension percentage: 0");
+        extension.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                percentage = (int)extension.getValue();
+                deformationType = "extension";
+                leftPane = new JavaFX3DWorld(imageProperty).get3DWorldPane(percentage, deformationType);
+                root.setLeft(leftPane);
+                extensionText.setText("Extension percentage: " + (int)extension.getValue());
+            }
+        });
 
         Slider narrowing = new Slider();
         narrowing.setMin(0);
         narrowing.setMax(100);
-        narrowing.setValue(50);
+        narrowing.setValue(0);
         narrowing.setShowTickLabels(true);
         narrowing.setShowTickMarks(true);
         narrowing.setMajorTickUnit(50);
         narrowing.setMinorTickCount(5);
         narrowing.setBlockIncrement(10);
 
-        Text narrowingText = new Text("Narrowing percentage: 50");
-        narrowing.valueProperty()
-                .addListener( (ov, oldVal, newVal) ->
-                        narrowingText.setText("Narrowing percentage: " + (int)narrowing.getValue()));
+        Text narrowingText = new Text("Narrowing percentage: 0");
+        narrowing.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                percentage = (int)narrowing.getValue();
+                deformationType = "narrowing";
+                leftPane = new JavaFX3DWorld(imageProperty).get3DWorldPane(percentage, deformationType);
+                root.setLeft(leftPane);
+                narrowingText.setText("Narrowing percentage: " + (int)narrowing.getValue());
+                spiralText.setText("Spiral percentage: 0");
+                extensionText.setText("Extension percentage: 0");
+               // zigzagText.setText("Spiral percentage: 0");
+            }
+        });
 
         Slider zigzag = new Slider();
         zigzag.setMin(0);
         zigzag.setMax(100);
-        zigzag.setValue(75);
+        zigzag.setValue(0);
         zigzag.setShowTickLabels(true);
         zigzag.setShowTickMarks(true);
         zigzag.setMajorTickUnit(50);
         zigzag.setMinorTickCount(5);
         zigzag.setBlockIncrement(10);
 
-        Text zigzagText = new Text("Zigzag percentage: 75");
+        Text zigzagText = new Text("Zigzag percentage: 0");
         zigzag.valueProperty()
                 .addListener( (ov, oldVal, newVal) ->
                         zigzagText.setText("Zigzag percentage: " + (int)zigzag.getValue()));
