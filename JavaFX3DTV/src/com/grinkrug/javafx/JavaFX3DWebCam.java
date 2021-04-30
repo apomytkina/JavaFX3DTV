@@ -66,11 +66,15 @@ public class JavaFX3DWebCam extends Application {
     Slider verticalExtension;
     Slider verticalNarrowing;
     Slider horizontalNarrowing;
+    Slider convexity;
+    Slider concavity;
 
     Text horizontalExtensionText;
     Text verticalExtensionText;
     Text verticalNarrowingText;
     Text horizontalNarrowingText;
+    Text convexityText;
+    Text concavityText;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -143,11 +147,15 @@ public class JavaFX3DWebCam extends Application {
         verticalExtension = new Slider();
         verticalNarrowing = new Slider();
         horizontalNarrowing = new Slider();
+        convexity = new Slider();
+        concavity = new Slider();
 
-        horizontalExtensionText = new Text("Horizontal extension percentage: 0");
-        verticalExtensionText = new Text("Vertical extension percentage: 0");
-        verticalNarrowingText = new Text("Vertical Narrowing percentage: 0");
-        horizontalNarrowingText = new Text("Horizontal narrowing percentage: 0");
+        horizontalExtensionText = new Text("Horizontal extension percentage: 0\t\t");
+        verticalExtensionText = new Text("Vertical extension percentage: 0\t\t");
+        verticalNarrowingText = new Text("Vertical Narrowing percentage: 0\t\t");
+        horizontalNarrowingText = new Text("Horizontal Narrowing percentage: 0\t\t");
+        convexityText = new Text("Convexity percentage: 0\t\t");
+        concavityText = new Text("Concavity percentage: 0\t\t");
 
         horizontalExtension.setMin(0);
         horizontalExtension.setMax(100);
@@ -185,6 +193,24 @@ public class JavaFX3DWebCam extends Application {
         horizontalNarrowing.setMinorTickCount(5);
         horizontalNarrowing.setBlockIncrement(10);
 
+        convexity.setMin(0);
+        convexity.setMax(100);
+        convexity.setValue(0);
+        convexity.setShowTickLabels(true);
+        convexity.setShowTickMarks(true);
+        convexity.setMajorTickUnit(50);
+        convexity.setMinorTickCount(5);
+        convexity.setBlockIncrement(10);
+
+        concavity.setMin(0);
+        concavity.setMax(100);
+        concavity.setValue(0);
+        concavity.setShowTickLabels(true);
+        concavity.setShowTickMarks(true);
+        concavity.setMajorTickUnit(50);
+        concavity.setMinorTickCount(5);
+        concavity.setBlockIncrement(10);
+
         horizontalExtension.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
@@ -194,12 +220,16 @@ public class JavaFX3DWebCam extends Application {
                 root.setLeft(leftPane);
                 horizontalExtensionText.setText("Horizontal Extension percentage: " + (int)horizontalExtension.getValue());
 
+                concavity.setValue(0);
+                concavityText.setText("Concavity percentage: 0\t\t");
+                convexity.setValue(0);
+                convexityText.setText("Convexity percentage: 0\t\t");
                 verticalExtension.setValue(0);
-                verticalExtensionText.setText("Vertical Extension percentage: 0");
+                verticalExtensionText.setText("Vertical Extension percentage: 0\t\t");
                 verticalNarrowing.setValue(0);
-                verticalNarrowingText.setText("Vertical Narrowing percentage: 0");
+                verticalNarrowingText.setText("Vertical Narrowing percentage: 0\t\t");
                 horizontalNarrowing.setValue(0);
-                horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0");
+                horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0\t\t");
             }
         });
 
@@ -212,12 +242,16 @@ public class JavaFX3DWebCam extends Application {
                 root.setLeft(leftPane);
                 verticalExtensionText.setText("Vertical Extension percentage: " + (int)verticalExtension.getValue());
 
+                concavity.setValue(0);
+                concavityText.setText("Concavity percentage: 0\t\t");
+                convexity.setValue(0);
+                convexityText.setText("Convexity percentage: 0\t\t");
                 verticalNarrowing.setValue(0);
-                verticalNarrowingText.setText("Vertical Narrowing percentage: 0");
+                verticalNarrowingText.setText("Vertical Narrowing percentage: 0\t\t");
                 horizontalNarrowing.setValue(0);
-                horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0");
+                horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0\t\t");
                 horizontalExtension.setValue(0);
-                horizontalExtensionText.setText("Horizontal Extension percentage: 0");
+                horizontalExtensionText.setText("Horizontal Extension percentage: 0\t\t");
             }
         });
 
@@ -230,12 +264,16 @@ public class JavaFX3DWebCam extends Application {
                 root.setLeft(leftPane);
                 verticalNarrowingText.setText("Vertical Narrowing percentage: " + (int)verticalNarrowing.getValue());
 
+                concavity.setValue(0);
+                concavityText.setText("Concavity percentage: 0\t\t");
+                convexity.setValue(0);
+                convexityText.setText("Convexity percentage: 0\t\t");
                 verticalExtension.setValue(0);
-                verticalExtensionText.setText("Vertical Extension percentage: 0");
+                verticalExtensionText.setText("Vertical Extension percentage: 0\t\t");
                 horizontalNarrowing.setValue(0);
-                horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0");
+                horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0\t\t");
                 horizontalExtension.setValue(0);
-                horizontalExtensionText.setText("Horizontal Extension percentage: 0");
+                horizontalExtensionText.setText("Horizontal Extension percentage: 0\t\t");
             }
         });
 
@@ -248,12 +286,60 @@ public class JavaFX3DWebCam extends Application {
                 root.setLeft(leftPane);
                 horizontalNarrowingText.setText("Horizontal Narrowing percentage: " + (int)horizontalNarrowing.getValue());
 
+                concavity.setValue(0);
+                concavityText.setText("Concavity percentage: 0\t\t");
+                convexity.setValue(0);
+                convexityText.setText("Convexity percentage: 0\t\t");
                 verticalExtension.setValue(0);
-                verticalExtensionText.setText("Vertical Narrowing percentage: 0");
+                verticalExtensionText.setText("Vertical Extension percentage: 0\t\t");
                 verticalNarrowing.setValue(0);
-                verticalNarrowingText.setText("Vertical Narrowing percentage: 0");
+                verticalNarrowingText.setText("Horizontal Narrowing percentage: 0\t\t");
                 horizontalExtension.setValue(0);
-                horizontalExtensionText.setText("Horizontal Extension percentage: 0");
+                horizontalExtensionText.setText("Horizontal Extension percentage: 0\t\t");
+            }
+        });
+
+        convexity.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                percentage = (int)convexity.getValue();
+                deformationType = "convexity";
+                leftPane = new JavaFX3DWorld(imageProperty).get3DWorldPane(percentage, deformationType);
+                root.setLeft(leftPane);
+                convexityText.setText("Convexity percentage: " + (int)convexity.getValue());
+
+                concavity.setValue(0);
+                concavityText.setText("Concavity percentage: 0\t\t");
+                verticalExtension.setValue(0);
+                verticalExtensionText.setText("Vertical Extension percentage: 0\t\t");
+                verticalNarrowing.setValue(0);
+                verticalNarrowingText.setText("Vertical Narrowing percentage: 0\t\t");
+                horizontalNarrowing.setValue(0);
+                horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0\t\t");
+                horizontalExtension.setValue(0);
+                horizontalExtensionText.setText("Horizontal Extension percentage: 0\t\t");
+            }
+        });
+
+        concavity.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                percentage = (int)concavity.getValue();
+                deformationType = "concavity";
+                leftPane = new JavaFX3DWorld(imageProperty).get3DWorldPane(percentage, deformationType);
+                root.setLeft(leftPane);
+                concavityText.setText("Concavity percentage: " + (int)concavity.getValue());
+
+                convexity.setValue(0);
+                convexityText.setText("Convexity percentage: 0\t\t");
+                verticalExtension.setValue(0);
+                verticalExtensionText.setText("Vertical Extension percentage: 0\t\t");
+                verticalNarrowing.setValue(0);
+                verticalNarrowingText.setText("Vertical Narrowing percentage: 0\t\t");
+                horizontalNarrowing.setValue(0);
+                horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0\t\t");
+                horizontalExtension.setValue(0);
+                horizontalExtensionText.setText("Horizontal Extension percentage: 0\t\t");
             }
         });
 
@@ -270,6 +356,11 @@ public class JavaFX3DWebCam extends Application {
         GridPane.setConstraints(verticalNarrowing, 1, 3);
         GridPane.setConstraints(horizontalNarrowingText, 0, 4);
         GridPane.setConstraints(horizontalNarrowing, 1, 4);
+        GridPane.setConstraints(convexityText, 2, 1);
+        GridPane.setConstraints(convexity, 3, 1);
+        GridPane.setConstraints(concavityText, 2, 2);
+        GridPane.setConstraints(concavity, 3, 2);
+
 
         topPane.getChildren().addAll(
                 horizontalExtensionText,
@@ -280,6 +371,10 @@ public class JavaFX3DWebCam extends Application {
                 verticalNarrowing,
                 horizontalNarrowingText,
                 horizontalNarrowing,
+                convexityText,
+                convexity,
+                concavityText,
+                concavity,
                 lbInfoLabel
         );
 

@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c125627a-93f8-417c-84b0-adf29bbf63ff" name="Default Changelist" comment="">
+    <list default="true" id="c125627a-93f8-417c-84b0-adf29bbf63ff" name="Default Changelist" comment="concavity and convexity added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/JavaFX3DTV/cat.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFX3DTV/com/grinkrug/javafx/JavaFX3DWebCam$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFX3DTV/com/grinkrug/javafx/JavaFX3DWebCam$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFX3DTV/com/grinkrug/javafx/JavaFX3DWebCam$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFX3DTV/com/grinkrug/javafx/JavaFX3DWebCam$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFX3DTV/com/grinkrug/javafx/JavaFX3DWebCam$WebCamInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFX3DTV/com/grinkrug/javafx/JavaFX3DWebCam$WebCamInfo.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFX3DTV/com/grinkrug/javafx/JavaFX3DWebCam.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFX3DTV/com/grinkrug/javafx/JavaFX3DWebCam.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFX3DTV/com/grinkrug/javafx/JavaFX3DWorld$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFX3DTV/com/grinkrug/javafx/JavaFX3DWorld$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaFX3DTV/com/grinkrug/javafx/JavaFX3DWorld.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/JavaFX3DTV/com/grinkrug/javafx/JavaFX3DWorld.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cat.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/grinkrug/javafx/JavaFX3DWebCam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/grinkrug/javafx/JavaFX3DWebCam.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/grinkrug/javafx/JavaFX3DWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/grinkrug/javafx/JavaFX3DWorld.java" afterDir="false" />
     </list>
@@ -27,7 +25,7 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../helloworld" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../OCP" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -92,7 +90,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618822533036</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="horizontal and vertical extensions and narrowings added">
+      <created>1618826225301</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1618826225301</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -100,7 +105,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -108,6 +115,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="extension and narrowing added" />
-    <option name="LAST_COMMIT_MESSAGE" value="extension and narrowing added" />
+    <MESSAGE value="horizontal and vertical extensions and narrowings added" />
+    <MESSAGE value="concavity and convexity added" />
+    <option name="LAST_COMMIT_MESSAGE" value="concavity and convexity added" />
   </component>
 </project>
