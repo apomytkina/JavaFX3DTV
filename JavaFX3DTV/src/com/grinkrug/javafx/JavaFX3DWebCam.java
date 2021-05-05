@@ -13,7 +13,6 @@ import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -26,23 +25,9 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 import static javafx.geometry.Pos.CENTER;
-
-/**
- * TODO: class com.github.sarxos.webcam.Webcam provides FPS counter. Show FPS somewhere...
- * TODO: test for a long time with 3d navigation (it seems, there are some garbage collection issues?)
- * May be it should be better when right panel will be removed...
- * May be it needs to avoid texture mapping when the face is not visible (by its normal to camera view angle...);
- * probably - just stop the camera, or to not sygnal for binding the image from the camera...
- * TODO: Some investigations are required (with memory and events monitoring... - when the program hangs...)
- *
- * Pack the application into executable jar...
- */
 
 public class JavaFX3DWebCam extends Application {
     static private int percentage;
@@ -57,8 +42,6 @@ public class JavaFX3DWebCam extends Application {
     private Webcam webCam = null;
     private boolean stopCamera = false;
     private FlowPane bottomCameraControlPane;
-    private Button btnCamreaStop;
-    private Button btnCamreaStart;
     private BufferedImage grabbedImage;
     private ObjectProperty<Image> imageProperty = new SimpleObjectProperty<>();
 
@@ -68,6 +51,8 @@ public class JavaFX3DWebCam extends Application {
     Slider horizontalNarrowing;
     Slider convexity;
     Slider concavity;
+    Slider verticalZigzag;
+    Slider horizontalZigzag;
 
     Text horizontalExtensionText;
     Text verticalExtensionText;
@@ -75,6 +60,8 @@ public class JavaFX3DWebCam extends Application {
     Text horizontalNarrowingText;
     Text convexityText;
     Text concavityText;
+    Text verticalZigzagText;
+    Text horizontalZigzagText;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -100,7 +87,6 @@ public class JavaFX3DWebCam extends Application {
         bottomCameraControlPane.setOrientation(Orientation.HORIZONTAL);
         bottomCameraControlPane.setAlignment(CENTER);
         bottomCameraControlPane.setDisable(true);
-        //createCameraControls();
         root.setBottom(bottomCameraControlPane);
 
         leftPane = create3DPane(imageProperty);
@@ -117,20 +103,20 @@ public class JavaFX3DWebCam extends Application {
         return new JavaFX3DWorld(imageProperty).get3DWorldPane(percentage, deformationType);
     }
 
-    private void createCameraControls() {
-        btnCamreaStop = new Button();
-        btnCamreaStop.setOnAction(arg0 -> stopWebCamCamera());
-        btnCamreaStop.setText("Stop Camera");
-        btnCamreaStart = new Button();
-        btnCamreaStart.setOnAction(arg0 -> startWebCamCamera());
-        btnCamreaStart.setText("Start Camera");
-        Button btnCameraDispose = new Button();
-        btnCameraDispose.setText("Dispose Camera");
-        btnCameraDispose.setOnAction(arg0 -> disposeWebCamCamera());
-        bottomCameraControlPane.getChildren().add(btnCamreaStart);
-        bottomCameraControlPane.getChildren().add(btnCamreaStop);
-        bottomCameraControlPane.getChildren().add(btnCameraDispose);
-    }
+//    private void createCameraControls() {
+//        btnCamreaStop = new Button();
+//        btnCamreaStop.setOnAction(arg0 -> stopWebCamCamera());
+//        btnCamreaStop.setText("Stop Camera");
+//        btnCamreaStart = new Button();
+//        btnCamreaStart.setOnAction(arg0 -> startWebCamCamera());
+//        btnCamreaStart.setText("Start Camera");
+//        Button btnCameraDispose = new Button();
+//        btnCameraDispose.setText("Dispose Camera");
+//        btnCameraDispose.setOnAction(arg0 -> disposeWebCamCamera());
+//        bottomCameraControlPane.getChildren().add(btnCamreaStart);
+//        bottomCameraControlPane.getChildren().add(btnCamreaStop);
+//        bottomCameraControlPane.getChildren().add(btnCameraDispose);
+//    }
 
     private void setImageViewSize() {
         double height = webCamPane.getHeight();
@@ -149,13 +135,17 @@ public class JavaFX3DWebCam extends Application {
         horizontalNarrowing = new Slider();
         convexity = new Slider();
         concavity = new Slider();
+        verticalZigzag = new Slider();
+        horizontalZigzag = new Slider();
 
-        horizontalExtensionText = new Text("Horizontal extension percentage: 0\t\t");
-        verticalExtensionText = new Text("Vertical extension percentage: 0\t\t");
+        horizontalExtensionText = new Text("Horizontal Extension percentage: 0\t\t");
+        verticalExtensionText = new Text("Vertical Extension percentage: 0\t\t");
         verticalNarrowingText = new Text("Vertical Narrowing percentage: 0\t\t");
         horizontalNarrowingText = new Text("Horizontal Narrowing percentage: 0\t\t");
         convexityText = new Text("Convexity percentage: 0\t\t");
         concavityText = new Text("Concavity percentage: 0\t\t");
+        verticalZigzagText = new Text("Vertical Zigzag percentage: 0\t\t");
+        horizontalZigzagText = new Text("Horizontal Zigzag percentage: 0\t\t");
 
         horizontalExtension.setMin(0);
         horizontalExtension.setMax(100);
@@ -211,6 +201,24 @@ public class JavaFX3DWebCam extends Application {
         concavity.setMinorTickCount(5);
         concavity.setBlockIncrement(10);
 
+        verticalZigzag.setMin(0);
+        verticalZigzag.setMax(100);
+        verticalZigzag.setValue(0);
+        verticalZigzag.setShowTickLabels(true);
+        verticalZigzag.setShowTickMarks(true);
+        verticalZigzag.setMajorTickUnit(50);
+        verticalZigzag.setMinorTickCount(5);
+        verticalZigzag.setBlockIncrement(10);
+
+        horizontalZigzag.setMin(0);
+        horizontalZigzag.setMax(100);
+        horizontalZigzag.setValue(0);
+        horizontalZigzag.setShowTickLabels(true);
+        horizontalZigzag.setShowTickMarks(true);
+        horizontalZigzag.setMajorTickUnit(50);
+        horizontalZigzag.setMinorTickCount(5);
+        horizontalZigzag.setBlockIncrement(10);
+
         horizontalExtension.valueProperty().addListener(new ChangeListener<Number>() {
             public void changed(ObservableValue<? extends Number> ov,
                                 Number old_val, Number new_val) {
@@ -230,6 +238,10 @@ public class JavaFX3DWebCam extends Application {
                 verticalNarrowingText.setText("Vertical Narrowing percentage: 0\t\t");
                 horizontalNarrowing.setValue(0);
                 horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0\t\t");
+                horizontalZigzag.setValue(0);
+                horizontalZigzagText.setText("Horizontal Zigzag percentage: 0\t\t");
+                verticalZigzag.setValue(0);
+                verticalZigzagText.setText("Vertical Zigzag percentage: 0\t\t");
             }
         });
 
@@ -252,6 +264,10 @@ public class JavaFX3DWebCam extends Application {
                 horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0\t\t");
                 horizontalExtension.setValue(0);
                 horizontalExtensionText.setText("Horizontal Extension percentage: 0\t\t");
+                horizontalZigzag.setValue(0);
+                horizontalZigzagText.setText("Horizontal Zigzag percentage: 0\t\t");
+                verticalZigzag.setValue(0);
+                verticalZigzagText.setText("Vertical Zigzag percentage: 0\t\t");
             }
         });
 
@@ -274,6 +290,10 @@ public class JavaFX3DWebCam extends Application {
                 horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0\t\t");
                 horizontalExtension.setValue(0);
                 horizontalExtensionText.setText("Horizontal Extension percentage: 0\t\t");
+                horizontalZigzag.setValue(0);
+                horizontalZigzagText.setText("Horizontal Zigzag percentage: 0\t\t");
+                verticalZigzag.setValue(0);
+                verticalZigzagText.setText("Vertical Zigzag percentage: 0\t\t");
             }
         });
 
@@ -293,9 +313,13 @@ public class JavaFX3DWebCam extends Application {
                 verticalExtension.setValue(0);
                 verticalExtensionText.setText("Vertical Extension percentage: 0\t\t");
                 verticalNarrowing.setValue(0);
-                verticalNarrowingText.setText("Horizontal Narrowing percentage: 0\t\t");
+                verticalNarrowingText.setText("Vertical Narrowing percentage: 0\t\t");
                 horizontalExtension.setValue(0);
                 horizontalExtensionText.setText("Horizontal Extension percentage: 0\t\t");
+                horizontalZigzag.setValue(0);
+                horizontalZigzagText.setText("Horizontal Zigzag percentage: 0\t\t");
+                verticalZigzag.setValue(0);
+                verticalZigzagText.setText("Vertical Zigzag percentage: 0\t\t");
             }
         });
 
@@ -318,6 +342,10 @@ public class JavaFX3DWebCam extends Application {
                 horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0\t\t");
                 horizontalExtension.setValue(0);
                 horizontalExtensionText.setText("Horizontal Extension percentage: 0\t\t");
+                horizontalZigzag.setValue(0);
+                horizontalZigzagText.setText("Horizontal Zigzag percentage: 0\t\t");
+                verticalZigzag.setValue(0);
+                verticalZigzagText.setText("Vertical Zigzag percentage: 0\t\t");
             }
         });
 
@@ -340,6 +368,62 @@ public class JavaFX3DWebCam extends Application {
                 horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0\t\t");
                 horizontalExtension.setValue(0);
                 horizontalExtensionText.setText("Horizontal Extension percentage: 0\t\t");
+                horizontalZigzag.setValue(0);
+                horizontalZigzagText.setText("Horizontal Zigzag percentage: 0\t\t");
+                verticalZigzag.setValue(0);
+                verticalZigzagText.setText("Vertical Zigzag percentage: 0\t\t");
+            }
+        });
+
+        verticalZigzag.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                percentage = (int)verticalZigzag.getValue();
+                deformationType = "vertical zigzag";
+                leftPane = new JavaFX3DWorld(imageProperty).get3DWorldPane(percentage, deformationType);
+                root.setLeft(leftPane);
+                verticalZigzagText.setText("Vertical Zigzag percentage " + (int)verticalZigzag.getValue());
+
+                concavity.setValue(0);
+                concavityText.setText("Concavity percentage: 0\t\t");
+                convexity.setValue(0);
+                convexityText.setText("Convexity percentage: 0\t\t");
+                verticalExtension.setValue(0);
+                verticalExtensionText.setText("Vertical Extension percentage: 0\t\t");
+                verticalNarrowing.setValue(0);
+                verticalNarrowingText.setText("Vertical Narrowing percentage: 0\t\t");
+                horizontalExtension.setValue(0);
+                horizontalExtensionText.setText("Horizontal Extension percentage: 0\t\t");
+                horizontalNarrowing.setValue(0);
+                horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0\t\t");
+                horizontalZigzag.setValue(0);
+                horizontalZigzagText.setText("Horizontal Zigzag percentage: 0\t\t");
+            }
+        });
+
+        horizontalZigzag.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                percentage = (int)horizontalZigzag.getValue();
+                deformationType = "horizontal zigzag";
+                leftPane = new JavaFX3DWorld(imageProperty).get3DWorldPane(percentage, deformationType);
+                root.setLeft(leftPane);
+                horizontalZigzagText.setText("Horizontal Zigzag percentage " + (int)horizontalZigzag.getValue());
+
+                concavity.setValue(0);
+                concavityText.setText("Concavity percentage: 0\t\t");
+                convexity.setValue(0);
+                convexityText.setText("Convexity percentage: 0\t\t");
+                verticalExtension.setValue(0);
+                verticalExtensionText.setText("Vertical Extension percentage: 0\t\t");
+                verticalNarrowing.setValue(0);
+                verticalNarrowingText.setText("Vertical Narrowing percentage: 0\t\t");
+                horizontalExtension.setValue(0);
+                horizontalExtensionText.setText("Horizontal Extension percentage: 0\t\t");
+                horizontalNarrowing.setValue(0);
+                horizontalNarrowingText.setText("Horizontal Narrowing percentage: 0\t\t");
+                verticalZigzag.setValue(0);
+                verticalZigzagText.setText("Vertical Zigzag percentage: 0\t\t");
             }
         });
 
@@ -350,17 +434,20 @@ public class JavaFX3DWebCam extends Application {
         GridPane.setConstraints(lbInfoLabel, 0, 0);
         GridPane.setConstraints(horizontalExtensionText, 0, 1);
         GridPane.setConstraints(horizontalExtension, 1, 1);
-        GridPane.setConstraints(verticalExtensionText, 0, 2);
-        GridPane.setConstraints(verticalExtension, 1, 2);
-        GridPane.setConstraints(verticalNarrowingText, 0, 3);
-        GridPane.setConstraints(verticalNarrowing, 1, 3);
-        GridPane.setConstraints(horizontalNarrowingText, 0, 4);
-        GridPane.setConstraints(horizontalNarrowing, 1, 4);
-        GridPane.setConstraints(convexityText, 2, 1);
-        GridPane.setConstraints(convexity, 3, 1);
-        GridPane.setConstraints(concavityText, 2, 2);
-        GridPane.setConstraints(concavity, 3, 2);
-
+        GridPane.setConstraints(horizontalNarrowingText, 0, 2);
+        GridPane.setConstraints(horizontalNarrowing, 1, 2);
+        GridPane.setConstraints(horizontalZigzagText, 0, 3);
+        GridPane.setConstraints(horizontalZigzag, 1, 3);
+        GridPane.setConstraints(concavityText, 0, 4);
+        GridPane.setConstraints(concavity, 1, 4);
+        GridPane.setConstraints(verticalExtensionText, 2, 1);
+        GridPane.setConstraints(verticalExtension, 3, 1);
+        GridPane.setConstraints(verticalNarrowingText, 2, 2);
+        GridPane.setConstraints(verticalNarrowing, 3, 2);
+        GridPane.setConstraints(verticalZigzagText, 2, 3);
+        GridPane.setConstraints(verticalZigzag, 3, 3);
+        GridPane.setConstraints(convexityText, 2, 4);
+        GridPane.setConstraints(convexity, 3, 4);
 
         topPane.getChildren().addAll(
                 horizontalExtensionText,
@@ -375,6 +462,10 @@ public class JavaFX3DWebCam extends Application {
                 convexity,
                 concavityText,
                 concavity,
+                verticalZigzagText,
+                verticalZigzag,
+                horizontalZigzagText,
+                horizontalZigzag,
                 lbInfoLabel
         );
 
@@ -391,7 +482,6 @@ public class JavaFX3DWebCam extends Application {
         cameraOptions.setPromptText(cameraListPromptText);
         cameraOptions.getSelectionModel().selectedItemProperty().addListener((arg0, arg1, arg2) -> {
             if (arg2 != null) {
-//                System.out.println("WebCam Index: " + arg2.getWebCamIndex()+": WebCam Name:"+ arg2.getWebCamName());
                 initializeWebCam(arg2.getWebCamIndex());
             }
         });
@@ -405,9 +495,7 @@ public class JavaFX3DWebCam extends Application {
                 while (!stopCamera) {
                     try {
                         if ((grabbedImage = webCam.getImage()) != null) {
-//                        System.out.println("Captured Image height * width: " + grabbedImage.getWidth() + " * " + grabbedImage.getHeight());
                             Platform.runLater(() -> {
-                                //final Image img = new Image("/cat.jpg");
                                 final Image mainiamge = SwingFXUtils.toFXImage(grabbedImage, null);
                                 imageProperty.set(mainiamge);
                             });
@@ -434,9 +522,9 @@ public class JavaFX3DWebCam extends Application {
         private String webCamName ;
         private int webCamIndex ;
 
-        String getWebCamName() {
-            return webCamName;
-        }
+//        String getWebCamName() {
+//            return webCamName;
+//        }
 
         void setWebCamName(String webCamName) {
             this.webCamName = webCamName;
@@ -459,7 +547,7 @@ public class JavaFX3DWebCam extends Application {
             @Override
             protected Void call() throws Exception {
                 if (webCam != null) {
-                    disposeWebCamCamera();
+                    //disposeWebCamCamera();
                     webCam = Webcam.getWebcams().get(webCamIndex);
                     webCam.open();
                 } else {
@@ -475,26 +563,25 @@ public class JavaFX3DWebCam extends Application {
         webCamThread.setDaemon(true);
         webCamThread.start();
         bottomCameraControlPane.setDisable(false);
-        //btnCamreaStart.setDisable(true);
     }
-    private void disposeWebCamCamera() {
-        stopCamera = true;
-        webCam.close();
-        Webcam.shutdown();
-        btnCamreaStart.setDisable(true);
-        btnCamreaStop.setDisable(true);
-    }
-
-    private void startWebCamCamera() {
-        stopCamera = false;
-        startWebCamStream();
-        btnCamreaStop.setDisable(false);
-        btnCamreaStart.setDisable(true);
-    }
-
-    private void stopWebCamCamera() {
-        stopCamera = true;
-        btnCamreaStart.setDisable(false);
-        btnCamreaStop.setDisable(true);
-    }
+//    private void disposeWebCamCamera() {
+//        stopCamera = true;
+//        webCam.close();
+//        Webcam.shutdown();
+//        //btnCamreaStart.setDisable(true);
+//        //btnCamreaStop.setDisable(true);
+//    }
+//
+//    private void startWebCamCamera() {
+//        stopCamera = false;
+//        startWebCamStream();
+//        btnCamreaStop.setDisable(false);
+//        btnCamreaStart.setDisable(true);
+//    }
+//
+//    private void stopWebCamCamera() {
+//        stopCamera = true;
+//        btnCamreaStart.setDisable(false);
+//        btnCamreaStop.setDisable(true);
+//    }
 }
